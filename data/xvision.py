@@ -15,6 +15,7 @@ from PIL import ImageDraw
 
 def evaluate_normalized_mean_error(predictions, groundtruth, log, extra_faces):
     ## compute total average normlized mean error
+    print("Test ground truth from xvision:", groundtruth)
     assert len(predictions) == len(
         groundtruth), 'The lengths of predictions and ground-truth are not consistent : {} vs {}'.format(
         len(predictions), len(groundtruth))

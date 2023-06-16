@@ -37,10 +37,10 @@ def obtain_args():
     parser.add_argument('--error_bar', type=float, help='For drawing the image with large distance error.')
     parser.add_argument('--batch_size', type=int, default=8, help='Batch size for training.')
     # Checkpoints
-    parser.add_argument('--print_freq', type=int, default=100, help='print frequency (default: 200)')
+    parser.add_argument('--print_freq', type=int, default=500, help='print frequency (default: 200)')
     parser.add_argument('--save_path', type=str,  help='Folder to save checkpoints and log.')
     # Acceleration
-    parser.add_argument('--workers', type=int, default=8, help='number of data loading workers (default: 2)')
+    parser.add_argument('--workers', type=int, default=2, help='number of data loading workers (default: 2)')
     # Random Seed
     parser.add_argument('--rand_seed', type=int, help='manual seed')
     args = parser.parse_args()
