@@ -15,7 +15,7 @@ from data import PTSconvert2box,PTSconvert2str
 this_dir = osp.dirname(os.path.abspath(__file__))
 SAVE_DIR = osp.join(this_dir, 'datasets','AFLW_lists')
 if not osp.isdir(SAVE_DIR): os.makedirs(SAVE_DIR)
-image_dir = osp.join('datasets',  'AFLW', 'images')
+image_dir = "/content/drive/MyDrive/BKAI_CV/PoseEstimation/images" #osp.join('datasets',  'AFLW', 'images')
 annot_dir = osp.join('datasets',  'AFLW', 'annotations')
 print ('AFLW image dir : {}'.format(image_dir))
 print ('AFLW annotation dir : {}'.format(annot_dir))
