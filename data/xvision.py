@@ -5,7 +5,7 @@
 @time: 1/1/19 10:16 PM
 @desc:
 '''
-import torch,os
+import torch,os, json
 import numpy as np
 from utils import print_log
 from .data_utils import pil_loader
@@ -15,7 +15,14 @@ from PIL import ImageDraw
 
 def evaluate_normalized_mean_error(predictions, groundtruth, log, extra_faces):
     ## compute total average normlized mean error
-    print("Test ground truth from xvision:", groundtruth)
+    # print("Test ground truth from xvision:", groundtruth)
+    with open("/content/drive/MyDrive/BKAI_CV/PoseEstimation/Test.txt", "a") as f:
+       f.write("Predictions \n")
+       f.write(json.dumps(predictions.tolist()))
+       f.write("\n")
+       f.write("Groundtruth\n")
+       f.write(json.dumps(groundtruth.tolist()))
+       f.write("\n")
     assert len(predictions) == len(
         groundtruth), 'The lengths of predictions and ground-truth are not consistent : {} vs {}'.format(
         len(predictions), len(groundtruth))
