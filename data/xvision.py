@@ -18,7 +18,7 @@ def evaluate_normalized_mean_error(predictions, groundtruth, log, extra_faces):
     # print("Test ground truth from xvision:", groundtruth)
     with open("/content/drive/MyDrive/BKAI_CV/PoseEstimation/Test.txt", "a") as f:
        f.write("Predictions \n")
-       f.write(json.dumps(predictions.tolist()))
+       f.write(json.dumps(predictions))
        f.write("\n")
        f.write("Groundtruth\n")
        f.write(json.dumps(groundtruth.tolist()))
