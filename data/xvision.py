@@ -17,11 +17,11 @@ def evaluate_normalized_mean_error(predictions, groundtruth, log, extra_faces):
     ## compute total average normlized mean error
     # print("Test ground truth from xvision:", groundtruth)
     with open("/content/drive/MyDrive/BKAI_CV/PoseEstimation/Test.txt", "a") as f:
-       f.write("Predictions \n")
-       f.write(json.dumps(predictions.tolist()))
+       f.write("Predictions with its size {}\n".format(predictions.shape))
+       f.write(str(predictions))
        f.write("\n")
-       f.write("Groundtruth\n")
-       f.write(json.dumps(groundtruth.tolist()))
+       f.write("Groundtruth with its size {}\n".format(groundtruth.shape))
+       f.write(str(groundtruth))
        f.write("\n")
     assert len(predictions) == len(
         groundtruth), 'The lengths of predictions and ground-truth are not consistent : {} vs {}'.format(
