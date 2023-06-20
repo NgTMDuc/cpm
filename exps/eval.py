@@ -39,7 +39,28 @@ def basic_eval(args, loader, net, criterion, epoch_str, logger, opt_config):
   end = time.time()
   for i, (inputs, target, mask, points, image_index, nopoints, cropped_size) in enumerate(loader):
     # inputs : Batch, Channel, Height, Width
+    if i == 1:
+      with open("/content/drive/MyDrive/BKAI_CV/PoseEstimation/Mask.txt", "a") as f:
+        f.write("Inputs with its size: {} \n".format(inputs.shape))
+        f.write(str(inputs) + "\n")
 
+        f.write("Target with its size: {} \n".format(target.shape))
+        f.write(str(target) + "\n")
+        
+        f.write("mask with its size: {} \n".format(target.shape))
+        f.write(str(target) + "\n")
+
+        f.write("points with its size: {} \n".format(target.shape))
+        f.write(str(points) + "\n")
+
+        f.write("image_index with its size: {} \n".format(target.shape))
+        f.write(str(image_index) + "\n")
+
+        f.write("nopoints with its size: {} \n".format(target.shape))
+        f.write(str(nopoints) + "\n")
+
+        f.write("cropped_size with its size: {} \n".format(target.shape))
+        f.write(str(cropped_size) + "\n")
     target = target.cuda(non_blocking=True)
 
     image_index = image_index.numpy().squeeze(1).tolist()
