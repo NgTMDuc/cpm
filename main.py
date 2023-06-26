@@ -15,8 +15,9 @@ from optimizer import obtain_optimizer
 from exps import basic_eval_all as eval_all
 from exps import basic_train as train
 from copy import deepcopy
-
+import sys
 def main(args):
+    print(sys.argv[1:])
     assert torch.cuda.is_available(), 'CUDA is not available.'
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
