@@ -8,7 +8,7 @@
 import glob
 import numpy as np
 def load_txt_file(file_path):
-  print("File path test from file_utils:", pfile_path)
+  print("File path test from file_utils:", file_path)
   '''
 
   load data or string from text file.
