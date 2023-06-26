@@ -43,6 +43,7 @@ class GeneralDataset(data.Dataset):
     if (label is not None) and (label.lower() != 'none'):
       if isinstance(label, str):
         assert osp.isfile(label), 'The annotation path is not a file : {}'.format(label)
+        # File to the label
         np_points, _ = anno_parser(label, self.NUM_PTS)
         meta = Point_Meta(self.NUM_PTS, np_points, box, data, self.dataset_name)
       elif isinstance(label, Point_Meta):
@@ -75,6 +76,7 @@ class GeneralDataset(data.Dataset):
     for idx, data in enumerate(datas):
       assert isinstance(data, str), 'The type of data is not correct : {}'.format(data)
       assert osp.isfile(datas[idx]), '{} is not a file'.format(datas[idx])
+      #TODO: Here
       self.append(datas[idx], labels[idx], boxes[idx], face_sizes[idx])
 
     assert len(self.datas) == self.length, 'The length and the data is not right {} vs {}'.format(self.length, len(self.datas))

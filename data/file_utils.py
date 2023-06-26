@@ -8,7 +8,9 @@
 import glob
 import numpy as np
 def load_txt_file(file_path):
+  print(file_path)
   '''
+
   load data or string from text file.
   '''
   with open(file_path, 'r') as cfile:

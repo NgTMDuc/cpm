@@ -61,7 +61,12 @@ def main(args):
     logger.log('Real Sigma : {:}'.format(args.sigma))
 
     # Training Dataset
-    train_data = GeneralDataset(train_transform, args.sigma, model_config.downsample, args.heatmap_type, args.data_indicator)
+    train_data = GeneralDataset(train_transform, 
+                                args.sigma, # 4 
+                                model_config.downsample, # 8 
+                                args.heatmap_type, # Gaussian
+                                args.data_indicator # AFLW-19 
+                                ) 
     train_data.load_list(args.train_lists, args.num_pts, True)
     train_loader = torch.utils.data.DataLoader(train_data, batch_size=args.batch_size,
                                                shuffle=True,num_workers=args.workers,
