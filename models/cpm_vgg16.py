@@ -84,8 +84,11 @@ class VGG16_base(nn.Module):
     feature  = self.features(inputs)
     xfeature = self.CPM_feature(feature)
     for i in range(self.config.stages):
-      if i == 0: cpm = self.stages[i]( xfeature )
-      else:      cpm = self.stages[i]( torch.cat([xfeature, batch_cpms[i-1]], 1) )
+      if i == 0: 
+        cpm = self.stages[i]( xfeature )
+      else:      
+        cpm = self.stages[i]( torch.cat([xfeature, batch_cpms[i-1]], 1) )
+      
       batch_cpms.append( cpm )
 
     # The location of the current batch

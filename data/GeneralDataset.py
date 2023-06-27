@@ -39,11 +39,13 @@ class GeneralDataset(data.Dataset):
 
   def append(self, data, label, box, face_size):
     assert osp.isfile(data), 'The image path is not a file : {}'.format(data)
+    #Append image path to self.datas
     self.datas.append( data )
     if (label is not None) and (label.lower() != 'none'):
       if isinstance(label, str):
         assert osp.isfile(label), 'The annotation path is not a file : {}'.format(label)
         # File to the label
+        # np_points = [x, y, appear?]
         np_points, _ = anno_parser(label, self.NUM_PTS)
         meta = Point_Meta(self.NUM_PTS, np_points, box, data, self.dataset_name)
       elif isinstance(label, Point_Meta):
@@ -149,7 +151,7 @@ class GeneralDataset(data.Dataset):
     else:
       points = torch.from_numpy(np.zeros((self.NUM_PTS,3))).type(torch.FloatTensor)
       Hpoint = np.zeros((3, self.NUM_PTS))
-
+    #TODO: read from here
     heatmaps, mask = generate_label_map(Hpoint, height//self.downsample, width//self.downsample, self.sigma, self.downsample, nopoints, self.heatmap_type) # H*W*C
 
     heatmaps = torch.from_numpy(heatmaps.transpose((2, 0, 1))).type(torch.FloatTensor)
