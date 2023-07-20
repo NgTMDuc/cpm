@@ -15,11 +15,16 @@ from data import PTSconvert2box,PTSconvert2str
 this_dir = osp.dirname(os.path.abspath(__file__))
 SAVE_DIR = osp.join(this_dir, 'datasets','AFLW_lists')
 if not osp.isdir(SAVE_DIR): os.makedirs(SAVE_DIR)
-image_dir = osp.join('datasets',  'AFLW', 'images')
-annot_dir = osp.join('datasets',  'AFLW', 'annotations')
+image_dir = osp.join(this_dir, 'datasets',  'AFLW', 'flickr')
+annot_dir = osp.join(this_dir, 'datasets',  'AFLW', 'annotations')
+from open_xml import *
+
+XML_PATH = "20230113_aflw_part_0_neck_annotation_sangdv.xml"
 print ('AFLW image dir : {}'.format(image_dir))
 print ('AFLW annotation dir : {}'.format(annot_dir))
 assert osp.isdir(image_dir), 'The image dir : {} does not exist'.format(image_dir)
+
+image_name_results, img_results = get_all_images(XML_PATH, image_dir)
 
 class AFLWFace():
   def __init__(self, index, name, mask, landmark, box):
@@ -53,13 +58,18 @@ class AFLWFace():
         if x > self.face_box[0] and x < self.face_box[2]:
           if y > self.face_box[1] and y < self.face_box[3]:
             oks = oks + 1
-    return oks == 19
+    return oks == 5
     
   def __repr__(self):
     return ('{name}(path={image_path}, face-id={face_id})'.format(name=self.__class__.__name__, **self.__dict__))
 
-def save_to_list_file(allfaces, lst_file, image_style_dir,
-                      annotation_dir, face_indexes, use_front, use_box):
+def save_to_list_file(allfaces, 
+                      lst_file, 
+                      image_style_dir,
+                      annotation_dir, 
+                      face_indexes, 
+                      use_front, 
+                      use_box):
   save_faces = []
   for index in face_indexes:
     face = allfaces[index]
@@ -108,6 +118,7 @@ if __name__ == "__main__":
   for i in range(total_image):
     name = mat['nameList'][i,0][0]
     #name = name[:-4] + '.jpg'
+    # print(name)
     aflwinfo['name-list'].append( name )
   aflwinfo['mask'] = mat['mask_new'].copy()
   aflwinfo['landmark'] = mat['data'].reshape((total_image, 2, 19))
@@ -115,8 +126,9 @@ if __name__ == "__main__":
   aflwinfo['box'] = mat['bbox'].copy()
   allfaces = []
   for i in range(total_image):
-    face = AFLWFace(i, aflwinfo['name-list'][i], aflwinfo['mask'][i], aflwinfo['landmark'][i], aflwinfo['box'][i])
-    allfaces.append( face )
+    if int(aflwinfo["name-list"][i][0]) == 0: 
+      face = AFLWFace(i, aflwinfo['name-list'][i], aflwinfo['mask'][i], aflwinfo['landmark'][i], aflwinfo['box'][i])
+      allfaces.append( face )
   
   USE_BOXES = ['GTL', 'GTB']
   for USE_BOX in USE_BOXES:
