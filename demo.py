@@ -14,7 +14,8 @@ import numpy as np
 from data import transforms, GeneralDataset,draw_image_by_points
 from utils import load_configure
 from models import obtain_model,remove_module_dict
-os.environ['CUDA_VISIBLE_DEVICES']='1'
+# os.environ['CUDA_VISIBLE_DEVICES']='1'
+
 def face_detect(path,face_detector):
     image=cv2.imread(path)
     haar_face_cascade = cv2.CascadeClassifier(face_detector)
@@ -87,6 +88,6 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Evaluate a single image by the trained model', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
   parser.add_argument('--image',            type=str,   help='The evaluation image path.')
   parser.add_argument('--model',            type=str,   help='The snapshot to the saved detector.')
-  parser.add_argument('--face_detector',    default='haarcascade_frontalface_alt2.xml',type=str,   help='The face detector')
+  parser.add_argument('--face_detector',    default='/content/cpm/haarcascade_frontalface_alt2.xml',type=str,   help='The face detector')
   args = parser.parse_args()
   evaluate(args)
