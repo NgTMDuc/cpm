@@ -12,3 +12,6 @@ def save_checkpoint(state, filename, logger):
   torch.save(state, filename)
   logger.log('save checkpoint into {}'.format(filename))
   return filename
+
+def load_checkpoint():
+  pass

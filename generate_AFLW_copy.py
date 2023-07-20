@@ -17,12 +17,14 @@ from loadmat import loadMatFile
 # this_dir = osp.dirname(os.path.abspath(__file__))
 this_dir = "/content/cpm"
 SAVE_DIR = osp.join(this_dir, 'datasets','AFLW_lists')
-if not osp.isdir(SAVE_DIR): os.makedirs(SAVE_DIR)
-image_dir = "/content/drive/MyDrive/BKAI_CV/PoseEstimation/images/"
-annot_dir = osp.join(this_dir, 'datasets',  'AFLW', 'annotations')
+if not osp.isdir(SAVE_DIR): 
+  os.makedirs(SAVE_DIR)
 from open_xml import *
 
-XML_PATH = "20230113_aflw_part_0_neck_annotation_sangdv.xml"
+image_dir = "/content/drive/MyDrive/BKAI_CV/PoseEstimation/images/"
+annot_dir = osp.join(this_dir, 'datasets',  'AFLW', 'annotations')
+
+XML_PATH = "/content/cpm/20230113_aflw_part_0_neck_annotation_sangdv.xml"
 print ('AFLW image dir : {}'.format(image_dir))
 print ('AFLW annotation dir : {}'.format(annot_dir))
 assert osp.isdir(image_dir), 'The image dir : {} does not exist'.format(image_dir)

@@ -14,8 +14,8 @@ def obtain_args():
     parser.add_argument('--train_lists', type=str, nargs='+', help='The list file path to the video training dataset.')
     parser.add_argument('--eval_ilists', type=str, nargs='+', help='The list file path to the image testing dataset.')
     parser.add_argument('--num_pts', type=int, help='Number of point.')
-    parser.add_argument('--model_config', default='./configs/Detector.config',type=str, help='The path to the model configuration')
-    parser.add_argument('--opt_config', type=str, default='./configs/SGD.config',help='The path to the optimizer configuration')
+    parser.add_argument('--model_config', default='/content/cpm/configs/Detector.config',type=str, help='The path to the model configuration')
+    parser.add_argument('--opt_config', type=str, default='/content/cpm/configs/SGD.config',help='The path to the optimizer configuration')
     # Data Generation
     parser.add_argument('--heatmap_type', type=str, default='gaussian',choices=['gaussian', 'laplacian'],
                         help='The method for generating the heatmap.')
@@ -40,7 +40,7 @@ def obtain_args():
     parser.add_argument('--print_freq', type=int, default=100, help='print frequency (default: 200)')
     parser.add_argument('--save_path', type=str,  help='Folder to save checkpoints and log.')
     # Acceleration
-    parser.add_argument('--workers', type=int, default=8, help='number of data loading workers (default: 2)')
+    parser.add_argument('--workers', type=int, default=2, help='number of data loading workers (default: 2)')
     # Random Seed
     parser.add_argument('--rand_seed', type=int, help='manual seed')
     args = parser.parse_args()
