@@ -85,7 +85,7 @@ def save_to_list_file(all_faces,
   all_face_sizes = []
   for face in save_faces:
     image_path = face.image_path
-    print(image_path)
+    # print(image_path)
     sub_dir, base_name = image_path.split('/')
     cannot_dir = osp.join(annotation_dir, sub_dir)
     cannot_path = osp.join(cannot_dir, base_name.split('.')[0] + '-{}.pts'.format(face.face_id))
