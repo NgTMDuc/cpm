@@ -3,11 +3,11 @@ import numpy as np
 import os.path as osp
 import os
 
-this_dir = osp.dirname(os.path.abspath(__file__))
-mat_path = osp.join(this_dir,'datasets','AFLW','AFLWinfo_release.mat')
+# this_dir = osp.dirname(os.path.abspath(__file__))
+mat_path = "/content/cpm/datasets/AFLW/AFLWinfo_release.mat"
 mat = loadmat(mat_path)
-save_info_path = "datasets/AFLW/aflwInfo.txt"
-save_name_path = "datasets/AFLW/aflwName.txt"
+save_info_path = "/content/cpm/datasets/AFLW/aflwInfo.txt"
+save_name_path = "/content/cpm/datasets/AFLW/aflwName.txt"
 
 
 def openSaveNameFile(save_name_path):

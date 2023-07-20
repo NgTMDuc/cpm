@@ -18,7 +18,7 @@ from loadmat import loadMatFile
 this_dir = "/content/cpm"
 SAVE_DIR = osp.join(this_dir, 'datasets','AFLW_lists')
 if not osp.isdir(SAVE_DIR): os.makedirs(SAVE_DIR)
-image_dir = osp.join(this_dir, 'datasets',  'AFLW', 'flickr')
+image_dir = "/content/drive/MyDrive/BKAI_CV/PoseEstimation/images/"
 annot_dir = osp.join(this_dir, 'datasets',  'AFLW', 'annotations')
 from open_xml import *
 
