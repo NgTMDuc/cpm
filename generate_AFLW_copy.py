@@ -14,7 +14,8 @@ from data import PTSconvert2box,PTSconvert2str
 from loadmat import loadMatFile
 
 #Change this paths according to your directories
-this_dir = osp.dirname(os.path.abspath(__file__))
+# this_dir = osp.dirname(os.path.abspath(__file__))
+this_dir = "/content/cpm"
 SAVE_DIR = osp.join(this_dir, 'datasets','AFLW_lists')
 if not osp.isdir(SAVE_DIR): os.makedirs(SAVE_DIR)
 image_dir = osp.join(this_dir, 'datasets',  'AFLW', 'flickr')
@@ -76,10 +77,6 @@ def save_to_list_file(all_faces,
   for face in all_faces:
     if use_front == False or face.check_font():
       save_faces.append(face)
-#   for index in face_indexes:
-#     face = allfaces[index]
-#     if use_front == False or face.check_front():
-#       save_faces.append( face )
   print ('Prepare to save {} face images into {}'.format(len(save_faces), lst_file))
 
   lst_file = open(lst_file, 'w')
@@ -91,7 +88,7 @@ def save_to_list_file(all_faces,
     cannot_path = osp.join(cannot_dir, base_name.split('.')[0] + '-{}.pts'.format(face.face_id))
     if not osp.isdir(cannot_dir): os.makedirs(cannot_dir)
     image_path = osp.join(image_style_dir, image_path)
-    assert osp.isfile(image_path), 'The image [{}/{}] {} does not exsit'.format(index, len(save_faces), image_path)
+    # assert osp.isfile(image_path), 'The image [{}/{}] {} does not exsit'.format(index, len(save_faces), image_path)
 
     if not osp.isfile(cannot_path):
       pts_str = PTSconvert2str( face.landmarks.T )
@@ -112,23 +109,6 @@ def save_to_list_file(all_faces,
 if __name__ == "__main__":
   mat_path = osp.join(this_dir,'datasets','AFLW','AFLWinfo_release.mat')
   aflwinfo = dict()
-  # mat = loadmat(mat_path)
-  # total_image = 24386
-  # load train/test splits
-  # ra = np.squeeze(mat['ra']-1).tolist()
-  # aflwinfo['train-index'] = ra[:20000]
-  # aflwinfo['test-index'] = ra[20000:]
-  # aflwinfo['name-list'] = []
-  # load name-list
-  # for i in range(total_image):
-    # name = mat['nameList'][i,0][0]
-    #name = name[:-4] + '.jpg'
-    # print(name)
-    # aflwinfo['name-list'].append( name )
-  # aflwinfo['mask'] = mat['mask_new'].copy()
-  # aflwinfo['landmark'] = mat['data'].reshape((total_image, 2, 19))
-  # aflwinfo['landmark'] = np.transpose(aflwinfo['landmark'], (0,2,1))
-  # aflwinfo['box'] = mat['bbox'].copy()
   aflwinfo = loadMatFile(mat_path)
   train_faces = []
   total_image = len(aflwinfo['name-list'])
@@ -143,11 +123,6 @@ if __name__ == "__main__":
     test_faces.append(face)
   
   allfaces = test_faces + train_faces
-  # print(len(test_faces))
-  
-  # print(len(allfaces))
-  # print(aflwinfo['name-list'])
-  # print(total_image)
   USE_BOXES = ['GTL', 'GTB']
   
   for USE_BOX in USE_BOXES:

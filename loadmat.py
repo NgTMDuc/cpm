@@ -54,7 +54,7 @@ def scale_bbox(bbox, w_increase, h_increase):
 name_list = openSaveNameFile(save_name_path)
 face_info = openSaveInfoFile(save_info_path)
 
-def loadMatFile(mat_path, name_list = name_list, face_info = face_info):
+def loadMatFile(mat_path, name_list = name_list, face_info = face_info, index = [6, 9, 18, 19, 20]):
     total_image = 24386
     aflwinfo = dict()
     # results = []
@@ -75,14 +75,14 @@ def loadMatFile(mat_path, name_list = name_list, face_info = face_info):
         if str(tmp_name[i][0]).split("/")[1] in name_list:
             # print(1)
             aflwinfo["name-list"].append(str(tmp_name[i][0]))
-            aflwinfo["mask"].append(np.append(tmp_mask[i], [1,1]))
+            aflwinfo["mask"].append(np.array(list(np.append(tmp_mask[i], [1,1])[x] for x in index )))
             # tmp = tmp_landmark[i]
             tmp = find_info(str(tmp_name[i][0]).split("/")[1], face_info)
             keypoints = tmp['keypoints']
             landmark = tmp_landmark[i]
             for key, value in keypoints.items():
                 landmark = np.append(landmark, [list(value)], axis = 0)
-            aflwinfo['landmark'].append(landmark)
+            aflwinfo['landmark'].append(np.array(list(landmark[x] for x in index)))
             aflwinfo['box'].append(scale_bbox(tmp_bbox[i], 1/3, 1/4))
 
             # results.append(aflwinfo)
@@ -93,7 +93,9 @@ if __name__ == "__main__":
     results = loadMatFile(mat_path)
     # print(len(results))
     # print(len(results["name-list"]))
-    print(results['name-list'][0])
+    # print(list(results['landmark'][0][x-1] for x in [6, 9, 18, 19, 20]))
+    print(results['landmark'][0])
+    print(results['mask'][0])
     # for face in face_info:
         # print(type(face))
         # print(face["image_name"])
