@@ -41,6 +41,9 @@ def evaluate_normalized_mean_error(predictions, groundtruth, log, extra_faces):
         elif num_points == 19:
             assert extra_faces is not None and extra_faces[i] is not None
             interocular_distance = extra_faces[i]
+        elif num_points == 5:
+            assert extra_faces is not None and extra_faces[i] is not None
+            interocular_distance = extra_faces[i]
         else:
             raise Exception('----> Unknown number of points : {}'.format(num_points))
         dis_sum, pts_sum = 0, 0
