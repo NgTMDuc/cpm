@@ -146,6 +146,7 @@ class Eval_Meta():
 
 
 def draw_image_by_points(_image, pts, radius, color,facebox, crop, resize):
+  print(pts)
   if isinstance(_image, str):
     _image = pil_loader(_image)
   assert isinstance(_image, Image.Image), 'image type is not PIL.Image.Image'

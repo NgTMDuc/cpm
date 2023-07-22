@@ -16,6 +16,18 @@ from utils import load_configure
 from models import obtain_model,remove_module_dict
 # os.environ['CUDA_VISIBLE_DEVICES']='1'
 
+def increase_facebox(facebox, w_increase, h_increase):
+  old_x, old_y, old_w, old_h = facebox
+
+  new_x = old_x - w_increase * old_w
+  if new_x < 0:
+    new_x = 0
+  
+  new_y = old_y
+  new_w = (1 + 2 * w_increase) * old_w
+  new_h = (1 + h_increase) * old_h
+  new_bbox = (new_x, new_y, new_w, new_h)
+  return new_bbox
 def face_detect(path,face_detector):
     image=cv2.imread(path)
     haar_face_cascade = cv2.CascadeClassifier(face_detector)
@@ -35,7 +47,7 @@ def evaluate(args):
     snapshot = Path(args.model)
     assert snapshot.exists(), 'The model path {:} does not exist'
     facebox=face_detect(args.image,args.face_detector)
-
+    facebox = increase_facebox(facebox, 1/3, 1/4)
     print('The face bounding box is {:}'.format(facebox))
     assert len(facebox)==4,'Invalid face input : {:}'.format(facebox)
     snapshot = torch.load(str(snapshot))
@@ -74,12 +86,15 @@ def evaluate(args):
     locations[:, 0], locations[:, 1] = locations[:, 0] * scale_w + cropped_size[2], locations[:, 1] * scale_h + \
                                        cropped_size[3]
     prediction = np.concatenate((locations, scores), axis=1).transpose(1, 0)
-
+    print("Prediction test")
+    print(prediction)
+    print("---------")
     print('the coordinates for {:} facial landmarks:'.format(param.num_pts))
     for i in range(param.num_pts):
         point = prediction[:, i]
         print('the {:02d}/{:02d}-th point : ({:.1f}, {:.1f}), score = {:.2f}'.format(i+1, param.num_pts, float(point[0]),
                                                                                      float(point[1]), float(point[2])))
+    print(len(prediction))
     image = draw_image_by_points(args.image, prediction, 2, (255, 0, 0), facebox, None,None)
     image.show()
     image.save(args.image.split('.')[0]+'_result.jpg')
